@@ -1,10 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HOME SISWA</title>
+    <title>CRUD</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -17,7 +15,7 @@
             margin: 15px;
             display: flex;
             justify-content: space-between;
-            
+
         }
 
         .judul {
@@ -26,34 +24,47 @@
             padding-top: 20px;
         }
 
-        .book-container {
-            display: flex;
-            padding-left: 20px;
-            margin-top: 10px;
-            cursor: pointer;
-        }
-        
-        .book {
-            margin: 8px;
-            padding: 12px;
-            border: 1px solid #ccc;
-            background-color: white;
-            text-align: center;
-            width: 140px;
-            border-radius: 10px;
+        table {
+            width: 90%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            margin: 0px auto;
         }
 
-        .book p {
-            width: 150px;
+        th,
+        td {
+            padding: 10px;
+            text-align: left;
+            border: 1px solid #ddd;
+            background-color: #fff;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        .cover img {
+            width: 100px;
+            /* Adjust the width as needed */
             height: auto;
-            font-size: 15px;
-
+            display: block;
+            margin: auto;
         }
 
-        .book img {
-            width: 140px;
-            height: auto;
-            border-radius: 10px;
+        td a {
+            display: inline-block;
+            padding: 5px 10px;
+            text-decoration: none;
+            color: #fff;
+            background-color: #007BFF;
+            /* Adjust the color as needed */
+            border-radius: 5px;
+            margin-right: 5px;
+        }
+
+        td a:hover {
+            background-color: #0056b3;
+            /* Adjust the hover color as needed */
         }
 
         nav {
@@ -120,7 +131,7 @@
         }
 
         section button {
-            padding: 5% 20px;
+            padding: 10px 20px;
             font-size: 14px;
             background-color: #fff;
             color: rgb(0, 0, 0);
@@ -128,12 +139,16 @@
             border-radius: 20px;
             cursor: pointer;
             width: 310px;
-            margin: 0 auto;
-    
+            margin-bottom: 10px;
+            /* Added margin-bottom */
         }
 
-        .pencet{
-            background-color:#D9D9D9;
+        button a {
+            padding: 50px;
+        }
+
+        .pencet {
+            background-color: #D9D9D9;
         }
 
         .logo-container {
@@ -175,16 +190,17 @@
             padding: 8px;
         }
 
-
-        .kontain {
-            left: 500px;
-            padding-top: 50px;
-            padding-left: 80px;
-            padding-right: 80px;
+        a {
+            /*color: #fff;*/
+            padding: 5px;
+            text-decoration: none;
         }
 
+        .cover {
+            width: 20%;
+            size: 20%;
+        }
     </style>
-    
 </head>
 
 <body>
@@ -192,8 +208,8 @@
     <div>
         <nav>
             <div class="logo-container">
-                <form action="homesiswa.php">
-                        <button class="logo-button">
+                <form action="homeadmin.php">
+                    <button class="logo-button">
                         <span class="logo-icon"><img src="/ukk/img/logots.png"></span> TELLIBRARY
                     </button>
                 </form>
@@ -203,78 +219,110 @@
                 <div class="search-icon"><img src="/ukk/img/search.png"></div>
                 <input type="text" class="search-input" placeholder="Search...">
             </div>
-            
+
             <a class="profile-logo" href="/ukk/logout.php"><img src="/ukk/img/door.png"></a>
         </nav>
     </div>
 
     <div>
         <section class="button">
-            <form action="favorite.php">
-                <button onclick="goToFavorite()">Buku Favorit</button>
+            <form action="add.html">
+                <button onclick="goToFavorite()">Tambah Buku</button>
 
-            <script>
-                function goToFavorite() {
-                    window.location.href = "favorite.php";
-                }
-            </script>
+                <script>
+                    function goToFavorite() {
+                        window.location.href = "add.html";
+                    }
+                </script>
             </form>
-            
+
             <form action="kategori.php">
-                <button onclick="goToKategori()">Kategori Buku</button>
+                <button onclick="goToKategori()">Data Peminjaman</button>
 
-            <script>
-                function goToKategori() {
-                    window.location.href = "kategori.php";
-                }
-            </script>
+                <script>
+                    function goToKategori() {
+                        window.location.href = "kategori.php";
+                    }
+                </script>
             </form>
-            
-            <form action="pinjaman.php">
-                <button onclick="goToPeminjaman()">Buku Pinjaman</button>
 
-            <script>
-                function goToPeminjaman() {
-                    window.location.href = "pinjaman.php";
-                }
-            </script>
+            <form action="delete.html">
+                <button onclick="goToPeminjaman()">blala</button>
+
+                <script>
+                    function goToPeminjaman() {
+                        window.location.href = "delete.html";
+                    }
+                </script>
             </form>
-            
+
         </section>
     </div>
 
-    <div>
-        <section>
-            <h2 class="judul">Rekomendasi Untuk Anda</h2>
+    <br />
+    <table border="1">
+        <tr>
+            <th>Buku Id</th>
+            <th>Judul</th>
+            <th>Penulis</th>
+            <th>Penerbit</th>
+            <th>Tahun Terbit</th>
+            <th>Deskripsi</th>
+            <th>Cover</th>
+            <th>Option</th>
 
-            <?php
-                include 'koneksi.php';
-                $no = 1;
-                $data = mysqli_query($koneksi, "select * from buku");
-                while ($d = mysqli_fetch_array($data)) {
+        </tr>
+        <?php
+        include 'koneksi.php';
+        $no = 1;
+        $data = mysqli_query($koneksi, "select * from buku");
+        while ($d = mysqli_fetch_array($data)) {
             ?>
-
-            <div class="book-container">
-
-                <a class='book' href="detail.php?id=<?php echo $d['Id_Buku']; ?>">
-                    
+            <tr>
+                <td>
+                    <?php echo $no++; ?>
+                </td>
+                <td>
                     <?php echo $d['Judul']; ?>
-
+                </td>
+                <td>
+                    <?php echo $d['Penulis']; ?>
+                </td>
+                <td>
+                    <?php echo $d['Penerbit']; ?>
+                </td>
+                <td>
+                    <?php echo $d['Tahun_Terbit']; ?>
+                </td>
+                <td>
+                    <?php echo $d['Deskripsi']; ?>
+                </td>
+                <td class='cover'>
                     <?php
+                    // Ambil data Blob dari variabel $d['cover']
                     $blobData = $d['Cover'];
+
+                    // Konversi Blob menjadi base64 encoded string
                     $base64Data = base64_encode($blobData);
-                    $imageUrl = 'data:image/jpeg;base64,' . $base64Data; 
+
+                    // Buat URL data untuk gambar
+                    $imageUrl = 'data:image/jpeg;base64,' . $base64Data; // Ganti dengan jenis gambar yang sesuai
+                
+                    // Tampilkan gambar di HTML
                     echo '<img src="' . $imageUrl . '" alt="Gambar">';
                     ?>
-                </a>
+                </td>
 
-            </div>
-        </section>
-    </div>
-    <?php
-    }
-    ?>
 
+                <td>
+                    <a href="edit.php?id=<?php echo $d['Id_Buku']; ?>">Edit</a>
+                    <a href="delete.php?Id_Buku=<?php echo $d['Id_Buku']; ?>">Delete</a>
+                </td>
+            </tr>
+            <?php
+        }
+        ?>
+    </table>
 </body>
 
 </html>

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HOME SISWA</title>
+    <title>TAMBAH BUKU</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -20,42 +20,40 @@
             
         }
 
-        .judul {
-            color: #fff;
-            text-align: center;
-            padding-top: 20px;
-        }
-
-        .book-container {
-            display: flex;
-    
-            padding-left: 20px;
-            margin-top: 10px;
-            cursor: pointer;
-        }
-        
-        .book {
-            margin: 8px;
-            padding: 12px;
-            border: 1px solid #ccc;
+        .add {
+            width: 80%;
+            padding: 20px;
             background-color: white;
-            text-align: center;
-            width: 140px;
+            border-radius: 10px;
+            margin: 0 auto;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        input[type="text"],
+        input[type="file"],
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+            margin-bottom: 15px;
+        }
+
+        .submit {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
             border-radius: 10px;
         }
 
-        .book p {
-            width: 150px;
-            height: auto;
-            font-size: 15px;
-
-        }
-
-        .book img {
-            width: 140px;
-            height: auto;
-            border-radius: 10px;
-        }
 
         nav {
             background-color: #ffffff;
@@ -121,7 +119,7 @@
         }
 
         section button {
-            padding: 5% 20px;
+            padding: 10px 20px;
             font-size: 14px;
             background-color: #fff;
             color: rgb(0, 0, 0);
@@ -129,8 +127,12 @@
             border-radius: 20px;
             cursor: pointer;
             width: 310px;
-            margin: 0 auto;
-    
+            margin-bottom: 10px;
+            /* Added margin-bottom */
+        }
+
+        button a {
+            padding: 50px;
         }
 
         .pencet{
@@ -176,106 +178,84 @@
             padding: 8px;
         }
 
-
-        .kontain {
-            left: 500px;
-            padding-top: 50px;
-            padding-left: 80px;
-            padding-right: 80px;
-        }
-
     </style>
-    
 </head>
 
 <body>
 
-    <div>
-        <nav>
-            <div class="logo-container">
-                <form action="homesiswa.php">
+        <div>
+            <nav>
+                <div class="logo-container">
+                    <form action="homeadmin.php">
                         <button class="logo-button">
-                        <span class="logo-icon"><img src="/ukk/img/logots.png"></span> TELLIBRARY
-                    </button>
+                            <span class="logo-icon"><img src="/ukk/img/logots.png"></span> TELLIBRARY
+                        </button>
+                    </form>
+                </div>
+        
+                <a class="profile-logo" href="ukk/logout.php"><img src="/ukk/img/door.png"></a>
+            </nav>
+        </div>
+        
+        <div>
+            <section class="button">
+                <form action="add.html">
+                    <button class="pencet" onclick="goToFavorite()">Tambah Buku</button>
+        
+                    <script>
+                        function goToFavorite() {
+                            window.location.href = "add.html";
+                        }
+                    </script>
                 </form>
-            </div>
+        
+                <form action="edit.php">
+                    <button onclick="goToKategori()">Edit Buku</button>
+        
+                    <script>
+                        function goToKategori() {
+                            window.location.href = "edit.php";
+                        }
+                    </script>
+                </form>
+        
+                <form action="delete.html">
+                    <button onclick="goToPeminjaman()">Hapus Buku</button>
+        
+                    <script>
+                        function goToPeminjaman() {
+                            window.location.href = "delete.html";
+                        }
+                    </script>
+                </form>
+        
+            </section>
+        </div>
 
-            <div class="search-bar">
-                <div class="search-icon"><img src="/ukk/img/search.png"></div>
-                <input type="text" class="search-input" placeholder="Search...">
-            </div>
-            
-            <a class="profile-logo" href="/ukk/logout.php"><img src="/ukk/img/door.png"></a>
-        </nav>
-    </div>
+    <form class='add' action="add.php" method="post" enctype="multipart/form-data">
+        
+        <label for="Cover">Book Cover:</label>
+        <input type="file" name="Cover" accept="image/*" required>
 
-    <div>
-        <section class="button">
-            <form action="favorite.php">
-                <button onclick="goToFavorite()">Buku Favorit</button>
+        <label for="Judul">Judul:</label>
+        <input type="text" name="Judul" required>
 
-            <script>
-                function goToFavorite() {
-                    window.location.href = "favorite.php";
-                }
-            </script>
-            </form>
-            
-            <form action="kategori.php">
-                <button onclick="goToKategori()">Kategori Buku</button>
+        <label for="Penulis">Penulis:</label>
+        <input type="text" name="Penulis" required>
 
-            <script>
-                function goToKategori() {
-                    window.location.href = "kategori.php";
-                }
-            </script>
-            </form>
-            
-            <form action="pinjaman.php">
-                <button onclick="goToPeminjaman()">Buku Pinjaman</button>
+        <label for="Penerbit">Penerbit:</label>
+        <input type="text" name="Penerbit" required>
 
-            <script>
-                function goToPeminjaman() {
-                    window.location.href = "pinjaman.php";
-                }
-            </script>
-            </form>
-            
-        </section>
-    </div>
+        <label for="Tahun_Terbit">Tahun Terbit:</label>
+        <input type="date" name="Tahun_Terbit" required>
 
-    <div>
-        <section>
-            <h2 class="judul">favorite</h2>
+        <label for="Deskripsi">Deskripsi:</label>
+        <textarea name="Deskripsi" rows="4" required></textarea>
 
-            <?php
-                include 'koneksi.php';
-                $no = 1;
-                $data = mysqli_query($koneksi, "select * from buku");
-                while ($d = mysqli_fetch_array($data)) {
-            ?>
-
-            <div class="book-container">
-
-                <a class="book" href="detail.php">
-                    
-                    <?php echo $d['Judul']; ?>
-
-                    <?php
-                    $blobData = $d['Cover'];
-                    $base64Data = base64_encode($blobData);
-                    $imageUrl = 'data:image/jpeg;base64,' . $base64Data; 
-                    echo '<img src="' . $imageUrl . '" alt="Gambar">';
-                    ?>
-                </a>
-
-            </div>
-        </section>
-    </div>
-    <?php
-    }
-    ?>
+        <input class='submit' type="submit" name="submit" value="Submit">
+    </form>
 
 </body>
 
 </html>
+

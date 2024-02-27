@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HOME SISWA</title>
+    <title>NOVEL</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -28,11 +28,14 @@
 
         .book-container {
             display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            max-width: fit-content;
             padding-left: 20px;
             margin-top: 10px;
             cursor: pointer;
         }
-        
+
         .book {
             margin: 8px;
             padding: 12px;
@@ -62,7 +65,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            width: 100%;
+            width: 1260px;
             border: 3px solid #C39E5C;
         }
 
@@ -88,7 +91,7 @@
         }
 
         .search-input {
-            width: 46%;
+            width: 45%;
             padding: 15px;
             padding-right: 130px;
             border: none;
@@ -100,10 +103,11 @@
 
         .search-icon {
             position: absolute;
+            right: 10px;
             transform: translateY(-50%);
             cursor: pointer;
             padding-top: 14px;
-            right: 40%;
+            right: 405px;
             width: 30px;
             height: 20px;
         }
@@ -120,7 +124,7 @@
         }
 
         section button {
-            padding: 5% 20px;
+            padding: 10px 20px;
             font-size: 14px;
             background-color: #fff;
             color: rgb(0, 0, 0);
@@ -128,12 +132,12 @@
             border-radius: 20px;
             cursor: pointer;
             width: 310px;
-            margin: 0 auto;
-    
+            margin-left: 80px;
+            margin-right: auto;
         }
 
-        .pencet{
-            background-color:#D9D9D9;
+        button a {
+            padding: 50px;
         }
 
         .logo-container {
@@ -182,9 +186,7 @@
             padding-left: 80px;
             padding-right: 80px;
         }
-
     </style>
-    
 </head>
 
 <body>
@@ -192,8 +194,8 @@
     <div>
         <nav>
             <div class="logo-container">
-                <form action="homesiswa.php">
-                        <button class="logo-button">
+                <form action="/ukk/peminjam/homesiswa.php">
+                    <button class="logo-button">
                         <span class="logo-icon"><img src="/ukk/img/logots.png"></span> TELLIBRARY
                     </button>
                 </form>
@@ -203,77 +205,85 @@
                 <div class="search-icon"><img src="/ukk/img/search.png"></div>
                 <input type="text" class="search-input" placeholder="Search...">
             </div>
-            
-            <a class="profile-logo" href="/ukk/logout.php"><img src="/ukk/img/door.png"></a>
+
+            <div class="profile-logo"><img src="/ukk/img/profile.png"></div>
         </nav>
     </div>
 
     <div>
         <section class="button">
-            <form action="favorite.php">
+            <form action="/ukk/peminjam/favorite.php">
                 <button onclick="goToFavorite()">Buku Favorit</button>
-
-            <script>
-                function goToFavorite() {
-                    window.location.href = "favorite.php";
-                }
-            </script>
+                <script>
+                    function goToFavorite() {
+                        window.location.href = "favorite.php";
+                    }
+                </script>
             </form>
-            
-            <form action="kategori.php">
-                <button onclick="goToKategori()">Kategori Buku</button>
 
-            <script>
-                function goToKategori() {
-                    window.location.href = "kategori.php";
-                }
-            </script>
+            <form action="/ukk/peminjam/kategori.php">
+                <button class="pencet" onclick="goToKategori()">Kategori Buku</button>
+                <script>
+                    function goToKategori() {
+                        window.location.href = "kategori.php";
+                    }
+                </script>
             </form>
-            
-            <form action="pinjaman.php">
+
+            <form action="/ukk/peminjam/pinjaman.php">
                 <button onclick="goToPeminjaman()">Buku Pinjaman</button>
-
-            <script>
-                function goToPeminjaman() {
-                    window.location.href = "pinjaman.php";
-                }
-            </script>
+                <script>
+                    function goToPeminjaman() {
+                        window.location.href = "pinjaman.php";
+                    }
+                </script>
             </form>
-            
+
         </section>
     </div>
 
     <div>
         <section>
-            <h2 class="judul">Rekomendasi Untuk Anda</h2>
-
-            <?php
-                include 'koneksi.php';
-                $no = 1;
-                $data = mysqli_query($koneksi, "select * from buku");
-                while ($d = mysqli_fetch_array($data)) {
-            ?>
-
+            <h2 class="judul">NOVEL</h2>
             <div class="book-container">
+                <div class="book">
+                    <img src="/ukk/img/asign.jpg" alt="Book 2">
+                    <p>A Sign Of Affection</p>
+                </div>
 
-                <a class='book' href="detail.php?id=<?php echo $d['Id_Buku']; ?>">
-                    
-                    <?php echo $d['Judul']; ?>
+                <div class="book-container"></div>
+                <div class="book">
+                    <img src="/ukk/img/asign.jpg" alt="Book 2">
+                    <p>A Sign Of Affection</p>
+                </div>
 
-                    <?php
-                    $blobData = $d['Cover'];
-                    $base64Data = base64_encode($blobData);
-                    $imageUrl = 'data:image/jpeg;base64,' . $base64Data; 
-                    echo '<img src="' . $imageUrl . '" alt="Gambar">';
-                    ?>
-                </a>
+                <div class="book-container"></div>
+                <div class="book">
+                    <img src="/ukk/img/asign.jpg" alt="Book 2">
+                    <p>A Sign Of Affection</p>
+                </div>
+
+                <div class="book-container"></div>
+                <div class="book">
+                    <img src="/ukk/img/asign.jpg" alt="Book 2">
+                    <p>A Sign Of Affection</p>
+                </div>
+
+                <div class="book-container"></div>
+                <div class="book">
+                    <img src="/ukk/img/asign.jpg" alt="Book 2">
+                    <p>A Sign Of Affection</p>
+                </div>
+
+                <div class="book-container"></div>
+                <div class="book">
+                    <img src="/ukk/img/asign.jpg" alt="Book 2">
+                    <p>A Sign Of Affection</p>
+                </div>
 
             </div>
         </section>
     </div>
-    <?php
-    }
-    ?>
 
 </body>
 

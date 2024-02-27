@@ -1,10 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kategori Buku</title>
+    <title>CRUD</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -17,6 +15,7 @@
             margin: 15px;
             display: flex;
             justify-content: space-between;
+
         }
 
         .judul {
@@ -25,13 +24,51 @@
             padding-top: 20px;
         }
 
+        table {
+            width: 90%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            margin: 0px auto;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border: 1px solid #ddd;
+            background-color: #fff;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        .cover img {
+            width: 100px; /* Adjust the width as needed */
+            height: auto;
+            display: block;
+            margin: auto;
+        }
+
+        td a {
+            display: inline-block;
+            padding: 5px 10px;
+            text-decoration: none;
+            color: #fff;
+            background-color: #007BFF; /* Adjust the color as needed */
+            border-radius: 5px;
+            margin-right: 5px;
+        }
+
+        td a:hover {
+            background-color: #0056b3; /* Adjust the hover color as needed */
+        }
         nav {
             background-color: #ffffff;
             padding: 8px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            width: 100%;
+            width: 1260px;
             border: 3px solid #C39E5C;
         }
 
@@ -42,6 +79,7 @@
             padding-bottom: 8px;
             padding-right: 45px;
             cursor: pointer;
+
         }
 
         .profile-logo img {
@@ -56,7 +94,7 @@
         }
 
         .search-input {
-            width: 46%;
+            width: 45%;
             padding: 15px;
             padding-right: 130px;
             border: none;
@@ -68,14 +106,14 @@
 
         .search-icon {
             position: absolute;
+            right: 10px;
             transform: translateY(-50%);
             cursor: pointer;
             padding-top: 14px;
-            right: 40%;
+            right: 400px;
             width: 30px;
             height: 20px;
         }
-
 
         .search-bar img {
             width: 33px;
@@ -89,7 +127,7 @@
         }
 
         section button {
-            padding: 5% 20px;
+            padding: 10px 20px;
             font-size: 14px;
             background-color: #fff;
             color: rgb(0, 0, 0);
@@ -97,10 +135,9 @@
             border-radius: 20px;
             cursor: pointer;
             width: 310px;
-            margin: 0 auto;
-    
+            margin-bottom: 10px;
+            /* Added margin-bottom */
         }
-
 
         button a {
             padding: 50px;
@@ -113,6 +150,7 @@
         .logo-container {
             text-align: center;
             margin-top: 0px;
+
         }
 
         .logo-button {
@@ -146,21 +184,19 @@
         .logo-icon img {
             width: 33px;
             padding: 8px;
+        }   
+
+        a{
+            /*color: #fff;*/
+            padding: 5px;
+            text-decoration: none; 
         }
 
-        .tombol-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center; /* Center horizontally */
-            padding: 40px 170px;
-        }
-
-        .tombol button {
-            margin-bottom: 10px;
-            padding: 10px;
+        .cover{
+            width: 20%;
+            size: 20%;
         }
     </style>
-
 </head>
 
 <body>
@@ -168,7 +204,7 @@
     <div>
         <nav>
             <div class="logo-container">
-                <form action="homesiswa.php">
+                <form action="index.php">
                     <button class="logo-button">
                         <span class="logo-icon"><img src="/ukk/img/logots.png"></span> TELLIBRARY
                     </button>
@@ -180,35 +216,38 @@
                 <input type="text" class="search-input" placeholder="Search...">
             </div>
 
-            <a class="profile-logo" href="/ukk/logout.php"><img src="/ukk/img/door.png"></a>
+            <a class="profile-logo" href="login.html"><img src="/ukk/img/door.png"></a>
         </nav>
     </div>
 
     <div>
         <section class="button">
-            <form action="favorite.php">
-                <button onclick="goToFavorite()">Buku Favorit</button>
+            <form action="add.html">
+                <button onclick="goToFavorite()">Tambah Buku</button>
+
                 <script>
                     function goToFavorite() {
-                        window.location.href = "favorite.php";
+                        window.location.href = "add.html";
                     }
                 </script>
             </form>
 
-            <form action="kategori.php-">
-                <button class="pencet" onclick="goToKategori()">Kategori Buku</button>
+            <form action="edit.php">
+                <button onclick="goToKategori()">Data Peminjaman</button>
+
                 <script>
                     function goToKategori() {
-                        window.location.href = "kategori.php";
+                        window.location.href = "edit.php";
                     }
                 </script>
             </form>
 
-            <form action="pinjaman.php">
-                <button onclick="goToPeminjaman()">Buku Pinjaman</button>
+            <form action="delete.html">
+                <button onclick="goToPeminjaman()">blala</button>
+
                 <script>
                     function goToPeminjaman() {
-                        window.location.href = "pinjaman.php";
+                        window.location.href = "delete.html";
                     }
                 </script>
             </form>
@@ -216,36 +255,72 @@
         </section>
     </div>
 
-    <!-- tombol buku -->
-    <div>
-        <div class="tombol-container">
-            <section class="tombol">
+    <br />
+    <table border="1">
+        <tr>
+            <th>Buku Id</th>
+            <th>Judul</th>
+            <th>Penulis</th>
+            <th>Penerbit</th>
+            <th>Tahun Terbit</th>
+            <th>Deskripsi</th>
+            <th>Cover</th>
+            <th>Option</th>
 
-                <button onclick="goTo('/ukk/peminjam/kategori/jurusan.html')">JURUSAN</button>
-                <button onclick="goTo('/ukk/peminjam/kategori/novel.html')">NOVEL</button>
-                <button onclick="goTo('/ukk/peminjam/kategori/tja.html')">TEKNIK JARINGAN AKSES</button>
-                <button onclick="goTo('/ukk/peminjam/kategori/rpl.html')">REKAYASA PERANGKAT LUNAK</button>
-                <button onclick="goTo('/ukk/peminjam/kategori/bahasa.html')">BAHASA</button>
-                <button onclick="goTo('/ukk/peminjam/kategori/komik.html')">ΚΟΜΙΚ</button>
-            </section>
+        </tr>
+        <?php
+        include 'koneksi.php';
+        $no = 1;
+        $data = mysqli_query($koneksi, "select * from buku");
+        while ($d = mysqli_fetch_array($data)) {
+            ?>
+            <tr>
+                <td>
+                    <?php echo $no++; ?>
+                </td>
+                <td>
+                    <?php echo $d['Judul']; ?>
+                </td>
+                <td>
+                    <?php echo $d['Penulis']; ?>
+                </td>
+                <td>
+                    <?php echo $d['Penerbit']; ?>
+                </td>
+                <td>
+                    <?php echo $d['Tahun_Terbit']; ?>
+                </td>
+                <td>
+                    <?php echo $d['Deskripsi']; ?>
+                </td>
+                <td class='cover'>
+                        <?php
+                            // Ambil data Blob dari variabel $d['cover']
+                            $blobData = $d['Cover'];
 
-            <section class="tombol">
-                <button onclick="goTo('/ukk/peminjam/kategori/fiksi.html')">FIKSI</button>
-                <button onclick="goTo('/ukk/peminjam/kategori/matematika.html')">MATIMATIKA</button>
-                <button onclick="goTo('/ukk/peminjam/kategori/edukasi.html')">EDUKASI</button>
-                <button onclick="goTo('/ukk/peminjam/kategori/tkj.html')">TEKNIK KOMPUTER DAN JARINGAN</button>
-                <button onclick="goTo('/ukk/peminjam/kategori/english.html')">ENGLISH / GRAMMER</button>
-            </section>
+                            // Konversi Blob menjadi base64 encoded string
+                            $base64Data = base64_encode($blobData);
 
-            <script>
-                function goTo(url) {
-                    window.location.href = url;
-                }
-            </script>
+                            // Buat URL data untuk gambar
+                            $imageUrl = 'data:image/jpeg;base64,' . $base64Data; // Ganti dengan jenis gambar yang sesuai
+                        
+                            // Tampilkan gambar di HTML
+                            echo '<img src="' . $imageUrl . '" alt="Gambar">';
+                            ?>
+                </td>
+
+
+                <td>
+                    <a href="edit.php?id=<?php echo $d['Id_Buku']; ?>">Edit</a>
+                    <a href="delete.php?Id_Buku=<?php echo $d['Id_Buku']; ?>">Delete</a>
+                </td>
+            </tr>
             
-        </div>
-    </div>
-
+        <?php
+        }
+        ?>
+    </table>
 </body>
 
 </html>
+

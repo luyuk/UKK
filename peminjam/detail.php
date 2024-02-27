@@ -17,50 +17,44 @@
 
         .book-container {
             display: flex;
-            background-color: #fff;
+            margin: 20px;
+            background-color: #FFFFFF;
             border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             overflow: hidden;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
 
-        .book-image {
-            max-width: 300px;
-            max-height: 400px;
-            padding: 20px;
+        
+        .bookimage {
+            width: auto;
+            height: 100%;
             border-radius: 10px 0 0 10px;
         }
 
         .book-description {
-            max-width: 500px;
             padding: 20px;
         }
 
         h2 {
             color: #333;
-            margin-top: 0;
         }
 
         p {
-            color: #555;
-            margin-bottom: 10px;
-        }
-
-        .action-buttons {
-            margin-top: 15px;
+            color: #666;
         }
 
         .action-buttons button {
-            padding: 10px 15px;
+            padding: 10px 20px;
             margin-right: 10px;
-            cursor: pointer;
-            background-color: #3498db;
-            color: #fff;
+            font-size: 14px;
+            background-color: #007BFF;
+            color: #FFF;
             border: none;
             border-radius: 5px;
+            cursor: pointer;
         }
 
         .review-form {
-            max-width: 300px;
             margin-top: 20px;
         }
 
@@ -70,69 +64,66 @@
             color: #333;
         }
 
-        .review-form input[type="number"] {
-            width: 50px;
-            padding: 8px;
-            margin-bottom: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-
         .review-form textarea {
-            width: 100%;
+            width: 90%;
             padding: 10px;
-            margin-bottom: 10px;
             border: 1px solid #ccc;
             border-radius: 5px;
+            margin-bottom: 10px;
         }
 
-        .review-form button {
-            padding: 10px 15px;
-            cursor: pointer;
-            background-color: #27ae60;
-            color: #fff;
+        .review-form input[type="text"],
+        .review-form input[type="number"] {
+            width: 90%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        .review-form input[type="submit"] {
+            padding: 10px 20px;
+            font-size: 14px;
+            background-color: #4CAF50;
+            color: #FFF;
             border: none;
             border-radius: 5px;
+            cursor: pointer;
         }
-
-        .reviews {
-            flex-grow: 1;
-            margin-left: 20px;
-        }
-
-        .review-container {
-            border: 1px solid #ccc;
-            padding: 10px;
-            margin-bottom: 10px;
-            background-color: #fff;
-            border-radius: 5px;
-        }
-
-        .review-container strong {
-            color: #333;
-        }
-
-        .reviews h3 {
-            color: #333;
-            margin-top: 0;
-        }
+        
     </style>
 </head>
 
 <body>
 
+
+<?php
+    include "koneksi.php";
+    $id = $_GET['id'];
+    $query_mysql = mysqli_query($koneksi, "select * from buku where Id_Buku='$id'") or die(mysqli_error($koneksi));
+    $nomor = 1;
+    while ($data = mysqli_fetch_array($query_mysql)) {
+?>
+
+
     <div class="book-container">
-        <img class="book-image" src="/img/asign.jpg" alt="Cover Buku">
+        <div class="bookimage">
+        <?php
+        $blobData = $data['Cover'];
+        $base64Data = base64_encode($blobData);
+        $imageUrl = 'data:image/jpeg;base64,' . $base64Data;
+        echo '<img src="' . $imageUrl . '" alt="Gambar">';
+        ?>
+        </div>
+
         <div class="book-description">
-            <h2>A Sign Of Affection</h2>
-            <p>Penulis: suu Morishita</p>
-            <p>Penerbit: Kodansha</p>
-            <p>Tahun Terbit: 2019</p>
-            <p>Deskripsi: mahasiswi bernama Yuki yang memiliki kebutuhan khusus tiba-tiba merasa kebingungan ketika bertemu orang asing yang
-            menanyakan arah jalan. Yuki merupakan gadis tuli tiba-tiba bertemu dengan Itsuomi yang membantunya ketika ditanyai oleh
-            orang lain. Menariknya, dia langsung menyadari bahwa Yuki sebenarnya adalah gadis tuli. Kisah cinta mereka baru saja
-            dimulai, A Sign of Affection adalah anime romantis yang akan menceritakan kisah cinta murni antara Yuki, seorang gadis
-            tuli, dan Itsuomi, seorang mahasiswa yang berkeliling dunia.</p>
+            <h2><?php echo $data['Judul']; ?></h2>
+            <p>Penulis: <?php echo $data['Penulis']; ?></p>
+            <p>Penerbit: <?php echo $data['Penerbit']; ?></p>
+            <p>Tahun Terbit: <?php echo $data['Tahun_Terbit']; ?></p>
+            <p>Deskripsi: <?php echo $data['Deskripsi']; ?></p>
+        
+        <?php } ?>
 
             <div class="action-buttons">
                 <button onclick="pinjam()">Pinjam</button>
@@ -141,43 +132,32 @@
 
             <div class="review-form">
                 <h3>Beri Ulasan</h3>
-                <label for="rating">Rating (1-10):</label>
-                <input type="number" id="rating" name="rating" min="1" max="10">
-                <br>
-                <label for="review">Ulasan:</label>
-                <textarea id="review" placeholder="Tulis ulasan Anda"></textarea>
-                <br>
-                <button onclick="submitReview()">Kirim Ulasan</button>
+                <form action="review.php" method="post">
+                    <label for="ulasanid">Ulasan ID:</label>
+                    <input type="text" id="ulasanid" name="ulasanid" value="<?php echo $data['Ulasan_ID']; ?>" required>
+
+                    <label for="userid">User ID:</label>
+                    <input type="text" id="userid" name="userid" value="<?php echo $data['User_ID']; ?>" required>
+
+                    <label for="bukuid">Buku ID:</label>
+                    <input type="text" id="bukuid" name="bukuid" value="<?php echo $data['Buku_ID']; ?>" required>
+
+                    <label for="ulasan">Ulasan:</label>
+                    <textarea id="ulasan" name="ulasan" rows="4" cols="50" required><?php echo $data['Ulasan']; ?></textarea>
+
+                    <label for="rating">Rating:</label>
+                    <input type="number" id="rating" name="rating" min="1" max="5" value="<?php echo $data['Rating']; ?>" required>
+
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" value="<?php echo $data['Username']; ?>" required>
+
+                    <input type="submit" value="Submit">
+                </form>
             </div>
         </div>
     </div>
 
-    <script>
-        function pinjam() {
-            alert("Anda telah meminjam buku ini.");
-        }
 
-        function simpan() {
-            alert("Anda telah menyimpan buku ini.");
-        }
-
-        function submitReview() {
-            var rating = document.getElementById('rating').value;
-            var ulasan = document.getElementById('review').value;
-
-            if (rating.trim() !== "" && ulasan.trim() !== "") {
-                var reviewContainer = document.getElementById('reviewContainer');
-                var reviewDiv = document.createElement("div");
-                reviewDiv.className = "review-container";
-                reviewDiv.innerHTML = "<strong>Rating:</strong> " + rating + "<br><strong>Ulasan:</strong> " + ulasan;
-                reviewContainer.appendChild(reviewDiv);
-
-                alert("Ulasan dan rating Anda telah terkirim.");
-            } else {
-                alert("Harap isi rating dan ulasan Anda terlebih dahulu.");
-            }
-        }
-    </script>
 
 </body>
 
